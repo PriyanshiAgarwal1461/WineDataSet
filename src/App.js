@@ -1,4 +1,3 @@
-import './App.css';
 import { WineSet } from './WineSet';
 
 function App() {
