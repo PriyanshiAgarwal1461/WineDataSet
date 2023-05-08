@@ -24,4 +24,4 @@ Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
 
-![alt text](<img width="504" alt="WineData" src="https://user-images.githubusercontent.com/116277294/236881568-04dfd580-ed49-4987-9898-df5ea34f4a27.PNG">)
+![alt text](assets/WineData.png)
