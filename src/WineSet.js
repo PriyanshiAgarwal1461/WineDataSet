@@ -85,7 +85,7 @@ export const WineSet = () => {
                             <th>Measures</th>
                             {AlcoholClassArray.map((item) => {
                                 return (
-                                    <td>class{item}</td>
+                                    <th>Class{item}</th>
                                 )
                             })}
                         </tr>
@@ -126,7 +126,7 @@ export const WineSet = () => {
                             <th>Measures</th>
                             {AlcoholClassArray.map((item) => {
                                 return (
-                                    <td>class{item}</td>
+                                    <th>Class{item}</th>
                                 )
                             })}
                         </tr>
