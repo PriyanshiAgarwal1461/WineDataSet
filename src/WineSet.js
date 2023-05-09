@@ -2,24 +2,17 @@ import productsData from './product.json';
 import './WineSet.css';
 
 export const WineSet = () => {
-    // find which alcohol class are there
-    const AlcoholClasssArr = [];
-    productsData.products.forEach((item) => {
-        if (AlcoholClasssArr.indexOf(item.Alcohol) === -1) {
-            AlcoholClasssArr.push(item.Alcohol)
+   // find which alcohol classes are there and seprate data on basis of alcohol class
+    const AlcoholClassArray=[];
+    const WineData =Object.values(productsData.products.reduce((acc,cur) => {
+        const key=cur.Alcohol;
+        if(!acc[key]){
+            acc[key] =[];
+            AlcoholClassArray.push(key)
         }
-    })
-
-    // seprate data on basis of class
-    let WineData = [];
-    for (let i = 0; i < AlcoholClasssArr.length; i++) {
-        const AlcoholSeperateClass = productsData.products.filter((item) => {
-            return item.Alcohol === AlcoholClasssArr[i]
-        })
-
-        WineData.push(AlcoholSeperateClass);
-
-    }
+        acc[key].push(cur);
+        return acc;
+    },{}))
 
 // form array having data of which mean,mode and median have to be calculated
     const AlcoholClassFlavanoids = [];
@@ -90,7 +83,7 @@ export const WineSet = () => {
                     <thead>
                         <tr>
                             <th>Measures</th>
-                            {AlcoholClasssArr.map((item) => {
+                            {AlcoholClassArray.map((item) => {
                                 return (
                                     <td>class{item}</td>
                                 )
@@ -131,7 +124,7 @@ export const WineSet = () => {
                     <thead>
                         <tr>
                             <th>Measures</th>
-                            {AlcoholClasssArr.map((item) => {
+                            {AlcoholClassArray.map((item) => {
                                 return (
                                     <td>class{item}</td>
                                 )
