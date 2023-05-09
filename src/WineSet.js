@@ -2,41 +2,40 @@ import productsData from './product.json';
 import './WineSet.css';
 
 export const WineSet = () => {
-
-//filter different alcohol class
-    const Alcohol1 = productsData.products.filter((item)=>{
-        return item.Alcohol ===1
-    })
-    const Alcohol2 = productsData.products.filter((item)=>{
-        return item.Alcohol ===2
-    })
-    const Alcohol3 = productsData.products.filter((item)=>{
-        return item.Alcohol ===3
+    // find which alcohol class are there
+    const AlcoholClasssArr = [];
+    productsData.products.forEach((item) => {
+        if (AlcoholClasssArr.indexOf(item.Alcohol) === -1) {
+            AlcoholClasssArr.push(item.Alcohol)
+        }
     })
 
-// form array of different class having values on which calculations have to be performed
-    let Alcohol1Flavanoids =[]
-    let Alcohol2Flavanoids =[]
-    let Alcohol3Flavanoids =[]
-    let Alcohol1Gamma =[]
-    let Alcohol2Gamma =[]
-    let Alcohol3Gamma =[]
+    // seprate data on basis of class
+    let WineData = [];
+    for (let i = 0; i < AlcoholClasssArr.length; i++) {
+        const AlcoholSeperateClass = productsData.products.filter((item) => {
+            return item.Alcohol === AlcoholClasssArr[i]
+        })
 
-    Alcohol1.forEach((item)=>{
-        Alcohol1Flavanoids.push(item.Flavanoids);
-        let Gamma = (item.Ash * item.Hue) / item.Magnesium;
-        Alcohol1Gamma.push(Gamma);
-    })
-    Alcohol2.forEach((item)=>{
-        Alcohol2Flavanoids.push(item.Flavanoids)
-        let Gamma = (item.Ash * item.Hue) / item.Magnesium;
-        Alcohol2Gamma.push(Gamma);
-    })
-    Alcohol3.forEach((item)=>{
-        Alcohol3Flavanoids.push(item.Flavanoids)
-        let Gamma = (item.Ash * item.Hue) / item.Magnesium;
-        Alcohol3Gamma.push(Gamma);
-    })
+        WineData.push(AlcoholSeperateClass);
+
+    }
+
+// form array having data of which mean,mode and median have to be calculated
+    const AlcoholClassFlavanoids = [];
+    const AlcoholClassGamma = [];
+    for (let i = 0; i < WineData.length; i++) {
+        const WineDataSet = WineData[i];
+        const AlcoholFlavanoids = [];
+        const AlcoholGamma = [];
+        WineDataSet.forEach((item) => {
+            AlcoholFlavanoids.push(item.Flavanoids);
+            let Gamma = (item.Ash * item.Hue) / item.Magnesium;
+            AlcoholGamma.push(Gamma);
+        })
+        AlcoholClassFlavanoids.push(AlcoholFlavanoids)
+        AlcoholClassGamma.push(AlcoholGamma)
+    }
 
     // function to perform mean
     const CalculateMean = ((item) => {
@@ -47,7 +46,7 @@ export const WineSet = () => {
         return mean.toFixed(3)
     })
 
-        // function to perform median
+    // function to perform median
     const CalculateMedian = ((item) => {
         const sorted = item.sort();
         const length = sorted.length;
@@ -60,7 +59,7 @@ export const WineSet = () => {
         }
     })
 
-        // function to perform mode
+    // function to perform mode
     const CalculateMode = ((item) => {
         let mode = 0;
         let maxCount = 0;
@@ -86,73 +85,88 @@ export const WineSet = () => {
 
     return (
         <div>
-        <div className='wine-data-set'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Measures</th>
-                        <th>Class 1</th>
-                        <th>Class 2</th>
-                        <th>Class 3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Flavanoids Mean</td>
-                        <td>{CalculateMean(Alcohol1Flavanoids)}</td>
-                        <td>{CalculateMean(Alcohol2Flavanoids)}</td>
-                        <td>{CalculateMean(Alcohol3Flavanoids)}</td>
+            <div className='wine-data-set'>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Measures</th>
+                            {AlcoholClasssArr.map((item) => {
+                                return (
+                                    <td>class{item}</td>
+                                )
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Flavanoids Mean</td>
+                            {AlcoholClassFlavanoids.map((item) => {
+                                return (
+                                    <td>{CalculateMean(item)}</td>
+                                )
+                            })}
+                        </tr>
+                        <tr>
+                            <td>Flavanoids Median</td>
+                            {AlcoholClassFlavanoids.map((item) => {
+                                return (
+                                    <td>{CalculateMedian(item)}</td>
+                                )
+                            })}
+                        </tr>
+                        <tr>
+                            <td>Flavanoids Mode</td>
+                            {AlcoholClassFlavanoids.map((item) => {
+                                return (
+                                    <td>{CalculateMode(item)}</td>
+                                )
+                            })}
+                        </tr>
+                    </tbody>
 
-                    </tr>
-                    <tr>
-                        <td>Flavanoids Median</td>
-                        <td>{CalculateMedian(Alcohol1Flavanoids)}</td>
-                        <td>{CalculateMedian(Alcohol2Flavanoids)}</td>
-                        <td>{CalculateMedian(Alcohol3Flavanoids)}</td>
-                    </tr>
-                    <tr>
-                        <td>Flavanoids Mode</td>
-                        <td>{CalculateMode(Alcohol1Flavanoids)}</td>
-                        <td>{CalculateMode(Alcohol2Flavanoids)}</td>
-                        <td>{CalculateMode(Alcohol3Flavanoids)}</td>
-                    </tr>
-                </tbody>
-
-            </table>
+                </table>
             </div>
             <div className='wine-data-set'>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Measures</th>
-                        <th>Class 1</th>
-                        <th>Class 2</th>
-                        <th>Class 3</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Gamma Mean</td>
-                        <td>{CalculateMean(Alcohol1Gamma)}</td>
-                        <td>{CalculateMean(Alcohol2Gamma)}</td>
-                        <td>{CalculateMean(Alcohol3Gamma)}</td>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Measures</th>
+                            {AlcoholClasssArr.map((item) => {
+                                return (
+                                    <td>class{item}</td>
+                                )
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Gamma Mean</td>
+                            {AlcoholClassGamma.map((item) => {
+                                return (
+                                    <td>{CalculateMean(item)}</td>
+                                )
+                            })}
 
-                    </tr>
-                    <tr>
-                        <td>Gamma Median</td>
-                        <td>{CalculateMedian(Alcohol1Gamma)}</td>
-                        <td>{CalculateMedian(Alcohol2Gamma)}</td>
-                        <td>{CalculateMedian(Alcohol3Gamma)}</td>
-                    </tr>
-                    <tr>
-                        <td>Gamma Mode</td>
-                        <td>{CalculateMode(Alcohol1Gamma)}</td>
-                        <td>{CalculateMode(Alcohol2Gamma)}</td>
-                        <td>{CalculateMode(Alcohol3Gamma)}</td>
-                    </tr>
-                </tbody>
+                        </tr>
+                        <tr>
+                            <td>Gamma Median</td>
+                            {AlcoholClassGamma.map((item) => {
+                                return (
+                                    <td>{CalculateMedian(item)}</td>
+                                )
+                            })}
+                        </tr>
+                        <tr>
+                            <td>Gamma Mode</td>
+                            {AlcoholClassGamma.map((item) => {
+                                return (
+                                    <td>{CalculateMode(item)}</td>
+                                )
+                            })}
+                        </tr>
+                    </tbody>
 
-            </table>
+                </table>
             </div>
         </div>
     )
