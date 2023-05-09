@@ -92,7 +92,7 @@ export const WineSet = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Flavanoids Mean</td>
+                            <th>Flavanoids Mean</th>
                             {AlcoholClassFlavanoids.map((item) => {
                                 return (
                                     <td>{CalculateMean(item)}</td>
@@ -100,7 +100,7 @@ export const WineSet = () => {
                             })}
                         </tr>
                         <tr>
-                            <td>Flavanoids Median</td>
+                            <th>Flavanoids Median</th>
                             {AlcoholClassFlavanoids.map((item) => {
                                 return (
                                     <td>{CalculateMedian(item)}</td>
@@ -108,7 +108,7 @@ export const WineSet = () => {
                             })}
                         </tr>
                         <tr>
-                            <td>Flavanoids Mode</td>
+                            <th>Flavanoids Mode</th>
                             {AlcoholClassFlavanoids.map((item) => {
                                 return (
                                     <td>{CalculateMode(item)}</td>
@@ -133,7 +133,7 @@ export const WineSet = () => {
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Gamma Mean</td>
+                            <th>Gamma Mean</th>
                             {AlcoholClassGamma.map((item) => {
                                 return (
                                     <td>{CalculateMean(item)}</td>
@@ -142,7 +142,7 @@ export const WineSet = () => {
 
                         </tr>
                         <tr>
-                            <td>Gamma Median</td>
+                            <th>Gamma Median</th>
                             {AlcoholClassGamma.map((item) => {
                                 return (
                                     <td>{CalculateMedian(item)}</td>
@@ -150,7 +150,7 @@ export const WineSet = () => {
                             })}
                         </tr>
                         <tr>
-                            <td>Gamma Mode</td>
+                            <th>Gamma Mode</th>
                             {AlcoholClassGamma.map((item) => {
                                 return (
                                     <td>{CalculateMode(item)}</td>
